@@ -1,6 +1,6 @@
 {
   "name": "esperar-resposta-interativo",
-  "version": "9.0.0",
+  "version": "3.0.0",
   "description": "Sistema de resposta interativa Node.js-only otimizado - editor multi-linha nativo, zero dependências externas",
   "main": "esperarResposta.js",
   "scripts": {

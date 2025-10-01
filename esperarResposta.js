@@ -2,74 +2,10 @@ const fs = require('fs');
 const path = require('path');
 const { spawn } = require('child_process');
 
-// Verificação automática do ambiente
-function checkEnvironment() {
-    console.log('🔍 Verificando ambiente...');
-    
-    // Verificar Node.js
-    const nodeVersion = process.version;
-    console.log(`✓ Node.js ${nodeVersion} detectado`);
-    
-    // Verificar módulos nativos necessários
-    try {
-        require('fs');
-        require('path');
-        require('child_process');
-        console.log('✓ Todos os módulos nativos estão disponíveis');
-    } catch (err) {
-        console.error('❌ Erro ao carregar módulos nativos:', err.message);
-        process.exit(1);
-    }
-    
-    // Verificar se VS Code está disponível (opcional)
-    const { exec } = require('child_process');
-    exec('code --version', (error) => {
-        if (error) {
-            console.log('⚠️  VS Code não detectado no PATH (será necessário para opção 3)');
-        } else {
-            console.log('✓ VS Code detectado e disponível');
-        }
-    });
-    
-    console.log('✅ Ambiente verificado com sucesso!\n');
-}
+// Template de arquivo otimizado (carregado uma única vez)
+const TEMPLATE_CONTENT = `# Instruções para o Assistente GitHub Copilot
 
-// Executar verificação na inicialização
-checkEnvironment();
-
-console.log('\n╔══════════════════════════════════════════════════════════╗');
-console.log('║                    SCRIPT DE RESPOSTA v2.0.1             ║');
-console.log('╚══════════════════════════════════════════════════════════╝');
-console.log('\nSelecione uma opção:');
-console.log('1. 🌀 Nova tentativa');
-console.log('2. 🛣️ Continue');
-console.log('3. 📃 INSTRUÇÕES PERSONALIZADAS');
-console.log('\nPressione o número da opção desejada...');
-
-// Função para criar nome de arquivo temporário único
-function createTempFileName() {
-    const now = new Date();
-    const timestamp = now.toISOString().replace(/[:.]/g, '-').slice(0, -5);
-    return path.join(__dirname, 'tmp-temporarios', `temp-${timestamp}.md`);
-}
-
-// Função para garantir que o diretório temporário existe
-function ensureTempDir() {
-    const tempDir = path.join(__dirname, 'tmp-temporarios');
-    if (!fs.existsSync(tempDir)) {
-        fs.mkdirSync(tempDir, { recursive: true });
-    }
-}
-
-// Função para abrir arquivo no VS Code e monitorar mudanças
-function editInVSCode() {
-    ensureTempDir();
-    const tempFile = createTempFileName();
-    
-    // Criar arquivo temporário com conteúdo inicial
-    const initialContent = `# Instruções para o Assistente GitHub Copilot
-
-💡 Dica: Digite suas instruções abaixo e salve o arquivo (Ctrl+S) para continuar.
+💡 Dica: Digite suas instruções abaixo, salve o arquivo (Ctrl+S) e FECHE esta aba para continuar.
 
 ## LISTA DE TAREFAS 📃
 
@@ -78,93 +14,98 @@ function editInVSCode() {
 
 ## FIM DAS INSTRUÇÕES
 
+⚠️  IMPORTANTE: Após editar, salve (Ctrl+S) e FECHE esta aba para que o script continue!
 `;
+
+// Verificação rápida e otimizada do ambiente
+function checkEnvironment() {
+    console.log(`🔍 Node.js ${process.version} ✓`);
+    console.log('✅ Ambiente verificado!\n');
+}
+
+// Função otimizada para criar nome do arquivo temporário
+function createTempFileName() {
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, -5);
+    return path.join(__dirname, 'tmp-temporarios', `temp-${timestamp}.md`);
+}
+
+// Garantir diretório temporário (inline e otimizado)
+function ensureTempDir() {
+    const tempDir = path.join(__dirname, 'tmp-temporarios');
+    if (!fs.existsSync(tempDir)) {
+        fs.mkdirSync(tempDir, { recursive: true });
+    }
+}
+
+// Função principal do VS Code otimizada
+function editInVSCode() {
+    ensureTempDir();
+    const tempFile = createTempFileName();
     
     try {
-        fs.writeFileSync(tempFile, initialContent);
-        console.log(`\n✓ Arquivo temporário criado: ${tempFile}`);
-        console.log('⏳ Abrindo VS Code...');
+        // Escrever arquivo uma única vez
+        fs.writeFileSync(tempFile, TEMPLATE_CONTENT);
         
-        // Abrir no VS Code
-        const vscode = spawn('code', [tempFile], { 
-            stdio: 'inherit',
-            detached: true
+        console.log(`\n✓ Arquivo temporário: ${tempFile}`);
+        console.log('📝 Abrindo VS Code e aguardando fechamento...');
+        console.log('⏸️  SCRIPT PAUSADO - Aguardando fechamento do VS Code...\n');
+        
+        // Remover listeners antes de spawn para evitar conflitos
+        process.stdin.removeAllListeners('data');
+        process.stdin.pause();
+        
+        // Spawn otimizado
+        const vscode = spawn('code', ['--wait', tempFile], { 
+            stdio: ['inherit', 'pipe', 'pipe']
         });
         
-        vscode.on('error', (err) => {
-            console.error('❌ Erro ao abrir VS Code:', err.message);
-            console.log('💡 Certifique-se de que o VS Code está instalado e no PATH');
-            process.exit(1);
-        });
-        
-        console.log('📝 VS Code aberto! Edite o arquivo e salve (Ctrl+S) quando terminar.');
-        console.log('⏳ Aguardando salvamento...\n');
-        
-        // Monitorar mudanças no arquivo
-        let lastModified = fs.statSync(tempFile).mtime;
-        let isWatching = true;
-        
-        const watcher = fs.watch(tempFile, (eventType) => {
-            if (eventType === 'change' && isWatching) {
-                try {
-                    const currentModified = fs.statSync(tempFile).mtime;
-                    
-                    // Verificar se o arquivo foi realmente modificado
-                    if (currentModified > lastModified) {
-                        lastModified = currentModified;
-                        
-                        // Aguardar um pequeno delay para garantir que o arquivo foi totalmente salvo
-                        setTimeout(() => {
-                            try {
-                                const content = fs.readFileSync(tempFile, 'utf8');
-                                
-                                // Verificar se o conteúdo mudou do inicial
-                                if (content.trim() !== initialContent.trim()) {
-                                    isWatching = false;
-                                    watcher.close();
-                                    
-                                    console.log('✅ Arquivo salvo detectado!\n');
-                                    console.log('\x1b[32m[BEGIN_USER_INSTRUCTIONS]\x1b[0m');
-                                    console.log('\x1b[32m' + content + '\x1b[0m');
-                                    console.log('\x1b[32m[END_USER_INSTRUCTIONS]\x1b[0m\n');
-                                    
-                                    // Limpar arquivo temporário
-                                    try {
-                                        fs.unlinkSync(tempFile);
-                                        console.log('🗑️  Arquivo temporário removido.');
-                                    } catch (cleanupErr) {
-                                        console.error('⚠️  Não foi possível remover o arquivo temporário:', tempFile, cleanupErr.message);
-                                    }
-                                    
-                                    process.exit(0);
-                                }
-                            } catch (readErr) {
-                                console.error('❌ Erro ao ler arquivo:', readErr.message);
-                            }
-                        }, 500); // Delay de 500ms para garantir que o arquivo foi totalmente salvo
-                    }
-                } catch (statErr) {
-                    // Arquivo pode ter sido temporariamente inacessível durante a escrita
-                    // Isso é normal durante operações de salvamento
-                    console.debug('Arquivo temporariamente inacessível:', statErr.message);
-                }
-            }
-        });
-        
-        // Capturar Ctrl+C para limpeza
-        process.on('SIGINT', () => {
-            console.log('\n\n🛑 Operação cancelada pelo usuário.');
-            watcher.close();
+        // Cleanup function otimizada
+        const cleanup = (isError = false) => {
             try {
                 if (fs.existsSync(tempFile)) {
                     fs.unlinkSync(tempFile);
-                    console.log('🗑️  Arquivo temporário removido.');
+                    if (!isError) console.log('🗑️  Arquivo temporário removido.');
                 }
             } catch (cleanupErr) {
-                console.error('⚠️  Não foi possível remover o arquivo temporário:', cleanupErr.message);
+                console.error('⚠️  Erro na limpeza:', cleanupErr.message);
             }
-            process.exit(0);
+        };
+        
+        vscode.on('error', (err) => {
+            console.error('❌ Erro ao abrir VS Code:', err.message);
+            cleanup(true);
+            process.exit(1);
         });
+        
+        vscode.on('close', () => {
+            console.log('✅ VS Code fechado! Processando instruções...\n');
+            
+            try {
+                const content = fs.readFileSync(tempFile, 'utf8');
+                console.log('\x1b[32m[BEGIN_USER_INSTRUCTIONS]\x1b[0m');
+                console.log('\x1b[32m' + content + '\x1b[0m');
+                console.log('\x1b[32m[END_USER_INSTRUCTIONS]\x1b[0m\n');
+                
+                cleanup();
+                console.log('✅ SCRIPT FINALIZADO COM SUCESSO!');
+                process.exit(0);
+                
+            } catch (readErr) {
+                console.error('❌ Erro ao ler arquivo:', readErr.message);
+                cleanup(true);
+                process.exit(1);
+            }
+        });
+        
+        // Event listeners otimizados para cleanup
+        const handleSignal = () => {
+            console.log('\n🛑 Operação cancelada.');
+            cleanup();
+            process.exit(0);
+        };
+        
+        process.on('SIGINT', handleSignal);
+        process.on('SIGTERM', handleSignal);
         
     } catch (err) {
         console.error('❌ Erro ao criar arquivo temporário:', err.message);
@@ -172,13 +113,26 @@ function editInVSCode() {
     }
 }
 
-// Configurar entrada de teclado
+// Inicialização otimizada
+checkEnvironment();
+
+console.log('╔══════════════════════════════════════════════════════════╗');
+console.log('║                  SCRIPT DE RESPOSTA v2.1.0               ║');
+console.log('╚══════════════════════════════════════════════════════════╝');
+console.log('\nSelecione uma opção:');
+console.log('1. 🌀 Nova tentativa');
+console.log('2. 🛣️ Continue');
+console.log('3. 📃 INSTRUÇÕES PERSONALIZADAS');
+console.log('\nPressione o número da opção desejada...');
+
+// Configuração otimizada de entrada
 if (process.stdin.isTTY) {
     process.stdin.setRawMode(true);
 }
 process.stdin.resume();
 process.stdin.setEncoding('utf8');
 
+// Event handler principal otimizado
 process.stdin.on('data', (key) => {
     const keyPressed = key.toString().trim();
     
@@ -187,28 +141,24 @@ process.stdin.on('data', (key) => {
             console.log('\n🌀 Modo "Nova tentativa" selecionado');
             console.log('\x1b[32m[BEGIN_USER_INSTRUCTIONS]\nQuero que você volte e tente novamente a última tarefa realizada.\n[END_USER_INSTRUCTIONS]\x1b[0m');
             process.exit(0);
-            break;
             
         case '2':
             console.log('\n🛣️ Modo "Continue" selecionado');
             console.log('\x1b[32m[BEGIN_USER_INSTRUCTIONS]\nContinue a execução. Pode prosseguir!\n[END_USER_INSTRUCTIONS]\x1b[0m');
             process.exit(0);
-            break;
             
         case '3':
             console.log('\n📝 Modo de edição no VS Code selecionado.');
             editInVSCode();
-            break;
+            return; // Return direto, sem break desnecessário
             
         case '\u0003': // Ctrl+C
-            console.log('\n\n🛑 Script interrompido pelo usuário.');
+            console.log('\n🛑 Script interrompido pelo usuário.');
             process.exit(0);
-            break;
             
         default:
             console.log(`\n❌ Opção inválida: "${keyPressed}"`);
-            console.log('💡 Pressione 1, 2, 3, 4 ou 0 para sair.');
-            break;
+            console.log('💡 Pressione 1, 2 ou 3.');
     }
 });
 

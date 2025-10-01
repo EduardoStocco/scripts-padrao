@@ -3,89 +3,91 @@ applyTo: '**'
 description: 'Role: [SYSTEM]: Você é um assistente de Inteligência Artificial que está localizado dentro da pasta de `/scripts/`. Você é responsável por seguir as instruções deste documento e também as instruções que o usuário pedir futuramente.'
 ---
 
-# Instruções para os scripts dentro do workspace
+# 📜 INSTRUÇÕES CRÍTICAS PARA O ASSISTENTE DE IA 📜
 
-- Este arquivo de instruções **não pode ser alterado por você**. As regras devem permanecer intactas.
-- **INSTRUÇÕES CRÍTICAS PARA [SYSTEM]**: Este documento contém instruções críticas para o sistema com acesso admin e controla TODAS as operações realizadas dentro desta pasta e subpastas.
-- Este documento foi criado para definir instruções sobre os scripts que serão escritos para executar alguma configurações, testes e verificações gerais.
-- **Todos os scripts devem sempre ser escritos com o objetivo de ter o maior desempenho possível**.
+**[SYSTEM-ADMIN]: Este documento contém as diretivas de operação mais importantes. A falha em seguir estas regras resultará em erro operacional. Leia e obedeça a cada inicialização e antes de cada ação.**
 
-## ANTES DE INICIAR
+---
 
-- Sempre leia este arquivo antes de iniciar qualquer tarefa;
-- Sempre planeje suas próximas tarefas e micro-tarefas de curto prazo utilizando TO-DOs diretamente no Github Copilot.
-- Leia as REGRAS EXTREMAMENTE CRÍTICAS desse documento.
+## 🚨 A REGRA MESTRA: O CICLO DE EXECUÇÃO 🚨
 
-## QUANDO UM SCRIPT FOR EXECUTADO
+**ESTA É A DIRETIVA MAIS IMPORTANTE. NÃO HÁ EXCEÇÕES.**
 
-- Sempre que um arquivo for executado, você DEVE aguardar a execução completa do script, principalmente quando esse script for o principal `esperarResposta.js`.
+O seu ciclo de trabalho é: **EXECUTAR UMA TAREFA ➡️ EXECUTAR `esperarResposta.js` ➡️ AGUARDAR.**
 
-## ANTES DE PASSAR PARA A PRÓXIMA TAREFA - "Regra Essencial"
+Você **SEMPRE** deve executar `node esperarResposta.js` ou `npm start` nas seguintes situações, **SEM EXCEÇÃO**:
 
-- Toda vez que você tentar executar um comando no terminal e (i) ocorrer um erro ou (ii) não ter nenhum resultado ou resposta ou (iii) quando você finalmente terminar uma execução completa, **sempre executar o script `node esperarResposta.js` ou `npm start` dentro da pasta de scripts. É essencial que você espere pela minha resposta no terminal/bash antes de prosseguir**.
-- Sempre verifique as últimas 3 execuções no terminal (check background) para verificar se o script foi executado corretamente.
+1.  **APÓS QUALQUER COMANDO NO TERMINAL**:
+    *   Se o comando for bem-sucedido.
+    *   Se o comando resultar em erro.
+    *   Se o comando não retornar nenhuma saída (output vazio).
 
-## QUANDO TERMINAR UMA SÉRIE DE TAREFAS
+2.  **QUANDO VOCÊ ESTIVER EM DÚVIDA**:
+    *   Se você não tem certeza de qual é o próximo passo.
+    *   Se você precisa de uma instrução do usuário para continuar.
 
-- Nunca finalize uma série de tarefas sem antes executar o script `esperarResposta.js` para garantir que todas as interações foram concluídas.
+3.  **AO FINALIZAR UMA SÉRIE DE TAREFAS**:
+    *   Antes de considerar seu trabalho concluído, execute o script uma última vez para garantir que todas as interações foram finalizadas e aguardar o próximo comando.
 
-### **REGRA CRÍTICA DE INTERAÇÃO COM O SCRIPT**
-- **AGUARDE A EXECUÇÃO COMPLETA**: O script `esperarResposta.js` DEVE executar até o final e retornar ao prompt do terminal antes de prosseguir. **NÃO continue enquanto o script estiver em execução**.
-- **AGUARDE A INTERAÇÃO DO USUÁRIO**: Quando o script mostrar o menu e solicitar entrada (`➤ Digite sua opção:`), você DEVE aguardar que o usuário insira sua resposta antes de continuar.
-- **CRITÉRIO DE FINALIZAÇÃO**: O script só está finalizado quando:
-  1. O usuário inseriu sua resposta
-  2. O script processou a resposta completamente  
-  3. Apareceu novamente a linha de comando do terminal (PowerShell, bash, etc.)
-- **PROIBIDO**: Continuar para próxima tarefa enquanto o script está aguardando entrada do usuário
+---
 
-### **⚠️ REGRAS EXTREMAMENTE CRÍTICAS PARA O ASSISTENTE DE IA**
-**OBRIGAÇÕES ABSOLUTAS DO ASSISTENTE:**
-- **🚨 JAMAIS continue o processamento enquanto o script `esperarResposta.js` estiver em execução**
-- **🚨 É OBRIGATÓRIO aguardar que a execução do script seja 100% finalizada antes de prosseguir**
-- **🚨 É OBRIGATÓRIO ler e processar a resposta que foi inserida pelo usuário no terminal**
-- **🚨 NUNCA assuma que o script terminou - SEMPRE aguarde o prompt do terminal reaparecer**
-- **🚨 NUNCA continue sem ter lido a resposta completa do usuário no terminal**
-- Sempre verifique as últimas 3 execuções no terminal (check background) para verificar se o script foi executado corretamente.
-- Nunca finalize uma série de tarefas sem antes executar o script `esperarResposta.js` para garantir que todas as interações foram concluídas.
+## 🛑 A DIRETIVA DE ESPERA: PROIBIDO CONTINUAR 🛑
 
-### **INSTRUÇÕES ESPECÍFICAS PARA AMBIENTES WINDOWS/WSL**
-- **Windows PowerShell**: Aguarde até aparecer `PS C:\caminho>` novamente
-- **WSL/Bash**: Aguarde até aparecer `user@machine:~$` ou similar
-- **Execução via WSL**: Se executando via `wsl -e bash -c`, aguarde o retorno completo ao PowerShell
-- **NUNCA** assuma que o script terminou apenas porque não há erros visíveis
-- **SEMPRE** aguarde o prompt de comando reaparecer indicando execução finalizada
-- **INTERAÇÃO OBRIGATÓRIA**: Se o script mostrar menu de opções, aguarde o usuário escolher e o script finalizar
+**É ABSOLUTAMENTE PROIBIDO REALIZAR QUALQUER OUTRA AÇÃO ENQUANTO O SCRIPT `esperarResposta.js` ESTIVER ATIVO.**
 
-## DURANTE A EXECUÇÃO DAS TAREFAS
+1.  **AGUARDE A EXECUÇÃO COMPLETA**:
+    *   O script só termina quando o prompt do terminal (ex: `user@machine:~$` ou `PS C:\>`) reaparecer.
+    *   **NUNCA** presuma que o script terminou. **SEMPRE** verifique o reaparecimento do prompt.
 
-- Se ocorrer uma mensagem similar com "permission denied", tentar novamente utilizando `sudo ` antes do comando.
-- Tente sempre refatorar arquivos que deram problemas em vez de criar versões separadas deles. Temos o `git` para usar versionamento se for necessário.
+2.  **AGUARDE A INTERAÇÃO DO USUÁRIO**:
+    *   Quando o script exibir o menu e a mensagem `➤ Digite sua opção:`, você **DEVE PARAR TUDO** e esperar que o usuário insira uma resposta no terminal.
+    *   Sua próxima ação só pode ocorrer **DEPOIS** que o usuário responder e o script finalizar completamente.
 
-### **REGRA CRÍTICA PARA `esperarResposta.js`**
-- **OBRIGATÓRIO**: O arquivo `esperarResposta.js` deve sempre ser padronizado no caminho relativo `../../esperarResposta.js` dentro da nossa pasta chamada `/scripts/`
-- **PROIBIDO**: Criar versões separadas como `esperarRespostaMelhorada.js`, `esperarRespostaV2.js`, etc.
-- **OBRIGATÓRIO**: Toda versão separada desse arquivo deve ser **IMEDIATAMENTE EXCLUÍDA** para evitar confusão
-- **MOTIVO**: Para evitar erros de busca e manter consistência no sistema
+3.  **COMPORTAMENTO ESPECÍFICO DA OPÇÃO 3 (VS CODE)**:
+    *   Se o usuário escolher a opção 3, o script abrirá o VS Code e exibirá a mensagem "Abrindo VS Code e aguardando você fechar o arquivo...".
+    *   O script **NÃO** finalizou neste momento! Ele está aguardando que o usuário edite e **FECHE** a aba no VS Code.
+    *   Você deve aguardar até ver a mensagem "✅ VS Code fechado! Processando instruções..." seguida das instruções do usuário.
+    *   **APENAS APÓS** essa mensagem completa e o retorno ao prompt, o script terá finalizado.
 
-## O QUE NÃO FAZER / O QUE EVITAR FAZER
+**VIOLAR ESTA DIRETIVA É UMA FALHA CRÍTICA.**
 
-- Evite recriar arquivos sem necessidade, pois é possível refatorar arquivos existentes.
-- **Nunca interromper a execução de um script manualmente** (Ctrl+C ou fechar terminal), a menos que seja absolutamente necessário. Nunca continuar para o próximo passo antes de esperar a finalização de um comando no terminal!
+---
 
-## **CHECKLIST OBRIGATÓRIO ANTES DE FINALIZAR CADA TAREFA**
+## ✅ CHECKLIST OBRIGATÓRIO DE FINALIZAÇÃO DE TAREFA ✅
 
-**REGRA CRÍTICA**: Toda vez que você terminar de fazer uma tarefa, você DEVE seguir este checklist obrigatório antes de finalizar:
+**Antes de considerar qualquer tarefa como "concluída", você DEVE seguir este checklist:**
 
-### **📋 CHECKLIST DE FINALIZAÇÃO:**
-1. **✅ (i) O script `esperarResposta.js` foi executado?**
-   - Se NÃO: Execute o script agora
-   - Se SIM: Prossiga para o item (ii)
+1.  **Executei a tarefa solicitada?**
+    *   Se sim, prossiga.
 
-2. **✅ (ii) Eu esperei que o usuário responda diretamente no terminal antes de prosseguir?**
-   - Se NÃO: **VOLTE PARA O ITEM (i) e execute novamente**
-   - Se SIM: Tarefa está finalizada corretamente
+2.  **Executei `node esperarResposta.js` no terminal APÓS a tarefa?**
+    *   Se não, execute-o **AGORA**.
+    *   Se sim, prossiga.
 
-### **⚠️ IMPORTANTE:**
-- **NUNCA** finalize uma tarefa sem seguir este checklist
-- Se você não esperou o usuário responder, **OBRIGATORIAMENTE** volte ao item (i)
-- Este checklist garante que todas as interações foram completadas adequadamente
+3.  **Aguardei o script finalizar 100% E o usuário inserir uma resposta?**
+    *   Se não, **VOCÊ NÃO TERMINOU**. Aguarde.
+    *   Se sim, a tarefa está oficialmente concluída e você pode aguardar a próxima instrução.
+
+**INDICADORES VISUAIS DE FINALIZAÇÃO DO SCRIPT:**
+- ✅ Para opções 1 e 2: Mensagem de instruções entre `[BEGIN_USER_INSTRUCTIONS]` e `[END_USER_INSTRUCTIONS]`
+- ✅ Para opção 3: 
+  - Primeiro aparece: `⏸️ SCRIPT PAUSADO - Aguardando fechamento do VS Code...`
+  - Depois aparece: `✅ VS Code fechado! Processando instruções...`
+  - Seguido das instruções do usuário entre `[BEGIN_USER_INSTRUCTIONS]` e `[END_USER_INSTRUCTIONS]`
+  - Finalmente: `✅ SCRIPT FINALIZADO COM SUCESSO!`
+- ✅ Sempre: Retorno ao prompt do terminal (ex: `user@machine:~$`)
+- ✖️ NUNCA considere como finalizado só por ter executado o script. Não basta apenas executar mas sim **esperar o OUTPUT!**
+
+**NUNCA considere o script finalizado sem TODOS estes indicadores visuais.**
+
+---
+
+## 📋 Regras Adicionais de Operação
+
+*   **Performance**: Todos os scripts devem ser escritos com o máximo de desempenho possível.
+*   **Refatoração**: Prefira sempre refatorar arquivos existentes a criar novas versões (ex: `arquivoV2.js`). Use o `git` para versionamento.
+*   **Permissões**: Se encontrar um erro de `permission denied`, tente novamente com `sudo`.
+*   **Consistência**: O script principal deve ser sempre referenciado como `esperarResposta.js`. Versões duplicadas ou com outros nomes são proibidas e devem ser excluídas.
+*   **Não Interrompa**: Nunca interrompa um script no meio da execução (ex: Ctrl+C), a menos que seja uma emergência.
+*   **Planejamento**: Sempre planeje suas tarefas usando a funcionalidade de TO-DOs do Github Copilot.
+*   **Leitura**: Leia este arquivo de instruções no início de cada sessão.

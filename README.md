@@ -50,7 +50,7 @@ Ao executar o script, você verá este menu:
 
 `
 ╔══════════════════════════════════════════════════════════╗
-║                    SCRIPT DE RESPOSTA v2.0.1             ║
+║                    SCRIPT DE RESPOSTA v3.0             ║
 ╚══════════════════════════════════════════════════════════╝
 
 Selecione uma opção:
@@ -203,7 +203,7 @@ brew install node
 
 ## 🔄 Histórico de Versões
 
-**v2.0.1** (Atual)
+**v3.0** (Atual)
 
 - ✅ Destaque em verde para mensagens do usuário
 - ✅ Verificação automática de ambiente
