@@ -16,6 +16,10 @@ description: 'Role: [SYSTEM]: Você é um assistente de Inteligência Artificial
 - Sempre planeje suas próximas tarefas e micro-tarefas de curto prazo utilizando TO-DOs diretamente no Github Copilot.
 - Leia as REGRAS EXTREMAMENTE CRÍTICAS desse documento.
 
+## QUANDO UM SCRIPT FOR EXECUTADO
+
+- Sempre que um arquivo for executado, você DEVE aguardar a execução completa do script, principalmente quando esse script for o principal `esperarResposta.js`.
+
 ## ANTES DE PASSAR PARA A PRÓXIMA TAREFA - "Regra Essencial"
 
 - Toda vez que você tentar executar um comando no terminal e (i) ocorrer um erro ou (ii) não ter nenhum resultado ou resposta ou (iii) quando você finalmente terminar uma execução completa, **sempre executar o script `node esperarResposta.js` ou `npm start` dentro da pasta de scripts. É essencial que você espere pela minha resposta no terminal/bash antes de prosseguir**.
@@ -66,6 +70,7 @@ description: 'Role: [SYSTEM]: Você é um assistente de Inteligência Artificial
 ## O QUE NÃO FAZER / O QUE EVITAR FAZER
 
 - Evite recriar arquivos sem necessidade, pois é possível refatorar arquivos existentes.
+- **Nunca interromper a execução de um script manualmente** (Ctrl+C ou fechar terminal), a menos que seja absolutamente necessário. Nunca continuar para o próximo passo antes de esperar a finalização de um comando no terminal!
 
 ## **CHECKLIST OBRIGATÓRIO ANTES DE FINALIZAR CADA TAREFA**
 
