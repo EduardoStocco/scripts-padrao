@@ -39,6 +39,7 @@ node esperarResposta.js
 ```
 
 Ou usando npm:
+
 ```bash
 npm start
 ```
@@ -47,18 +48,19 @@ npm start
 
 Ao executar o script, você verá este menu:
 
-```
+`
 ╔══════════════════════════════════════════════════════════╗
 ║                    SCRIPT DE RESPOSTA v2.0.1             ║
 ╚══════════════════════════════════════════════════════════╝
 
 Selecione uma opção:
+
 1. 🌀 Nova tentativa
 2. 🛣️ Continue  
 3. 📃 INSTRUÇÕES PERSONALIZADAS
 
 Pressione o número da opção desejada...
-```
+`
 
 ### 3. Explicação das Opções
 
