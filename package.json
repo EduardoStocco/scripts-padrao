@@ -1,0 +1,29 @@
+{
+  "name": "esperar-resposta-interativo",
+  "version": "9.0.0",
+  "description": "Sistema de resposta interativa Node.js-only otimizado - editor multi-linha nativo, zero dependências externas",
+  "main": "esperarResposta.js",
+  "scripts": {
+    "start": "node esperarResposta.js",
+    "test": "echo \"Nenhum teste implementado ainda\" && exit 1"
+  },
+  "keywords": [
+    "interativo",
+    "resposta",
+    "terminal",
+    "cli",
+    "editor",
+    "nodejs-only",
+    "otimizado",
+    "multiplataforma",
+    "performance"
+  ],
+  "author": "Sistema de Scripts",
+  "license": "MIT",
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "bin": {
+    "esperar-resposta": "./esperarResposta.js"
+  }
+}
