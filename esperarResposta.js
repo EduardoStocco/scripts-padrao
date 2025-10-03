@@ -5,16 +5,27 @@ const { spawn } = require('child_process');
 // Template de arquivo otimizado (carregado uma única vez)
 const TEMPLATE_CONTENT = `# Instruções para o Assistente GitHub Copilot
 
-💡 Dica: Digite suas instruções abaixo, salve o arquivo (Ctrl+S) e FECHE esta aba para continuar.
+Sempre siga a ordem da lista de tarefas.
 
 ## LISTA DE TAREFAS 📃
 
 - (1) Exemplo de tarefa 1
 - (2) Exemplo de tarefa 2
 
-## FIM DAS INSTRUÇÕES
+## ⚠️ CHECKLIST OBRIGATÓRIO DE FINALIZAÇÃO DE TAREFA
 
-⚠️  IMPORTANTE: Após editar, salve (Ctrl+S) e FECHE esta aba para que o script continue!
+**Antes de considerar qualquer tarefa como "concluída", você DEVE seguir este checklist:**
+
+1. **Executei a tarefa solicitada?**
+    - Se sim, prossiga.
+
+2. **Executei /home/eduardoho/go/src/git.sof.intra/siop/scripts/esperarResposta.js no terminal APÓS a tarefa?**
+    - Se não, execute-o **AGORA**.
+    - Se sim, prossiga.
+
+3. **Aguardei o script finalizar 100% E o usuário inserir uma resposta?**
+    - Se não, **VOCÊ NÃO TERMINOU**. Aguarde.
+    - Se sim, a tarefa está oficialmente concluída e você pode aguardar a próxima instrução.
 `;
 
 // Verificação rápida e otimizada do ambiente

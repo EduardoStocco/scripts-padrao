@@ -1,6 +1,6 @@
 # 🚀 Script de Resposta Interativa
 
-Sistema avançado de interação com usuário através do terminal, projetado para facilitar a comunicação entre assistentes de IA e usuários através de interfaces intuitivas.
+Sistema de interação com usuário através do terminal, projetado para facilitar a comunicação entre assistentes de IA e usuários através de interfaces intuitivas.
 
 ## 📋 Pré-requisitos
 
@@ -15,16 +15,12 @@ Antes de usar este script, certifique-se de ter instalado:
   node --version
   ```
 
-### Opcional (para melhor experiência)
-
 - **Visual Studio Code** - Necessário apenas para a opção de edição avançada
 
   ```bash
   # Verificar se VS Code está no PATH
   code --version
   ```
-
-> ⚠️ **Importante**: O script funciona perfeitamente apenas com Node.js. O VS Code é opcional e usado somente na funcionalidade de edição avançada.
 
 ## 🚀 Como Usar
 
@@ -50,7 +46,7 @@ Ao executar o script, você verá este menu:
 
 `
 ╔══════════════════════════════════════════════════════════╗
-║                    SCRIPT DE RESPOSTA v3.0             ║
+║                    SCRIPT DE RESPOSTA v3.0.1           ║
 ╚══════════════════════════════════════════════════════════╝
 
 Selecione uma opção:
@@ -84,16 +80,16 @@ Pressione o número da opção desejada...
   1. ✅ Um arquivo temporário é criado automaticamente
   2. 🖥️ O Visual Studio Code abre com um template pré-definido
   3. ✏️ Você edita o arquivo com suas instruções
-  4. 💾 Ao salvar (Ctrl+S), o conteúdo é capturado
-  5. 📤 O conteúdo é exibido no terminal formatado em **verde**
-  6. 🗑️ O arquivo temporário é removido automaticamente
+  4. 💾 Quando terminar sua edição, salve o arquivo (Ctrl+S)
+  5. 👂 O script espera o arquivo temporário que foi editado ser fechado. Ele detecta automaticamente
+  6. 📤 O conteúdo é exibido no terminal formatado em **verde**
+  7. 🗑️ O arquivo temporário é removido automaticamente
 
 **Exemplo de uso da Opção 3:**
 
 ```markdown
 # Instruções para o Assistente GitHub Copilot
 
-💡 Dica: Digite suas instruções abaixo e salve o arquivo (Ctrl+S) para continuar.
 
 ## LISTA DE TAREFAS 📃
 
@@ -101,10 +97,9 @@ Pressione o número da opção desejada...
 - (2) Adicionar testes unitários
 - (3) Atualizar documentação
 
-## FIM DAS INSTRUÇÕES
 ```
 
-## ✨ Funcionalidades Avançadas
+## ✨ Funcionalidades
 
 ### 🎨 Destaque Visual
 
