@@ -2,6 +2,9 @@ const fs = require('fs');
 const path = require('path');
 const { spawn } = require('child_process');
 
+// Obter username de forma cross-platform (Linux/Windows)
+const username = process.env.USER || process.env.USERNAME;
+
 // Template de arquivo otimizado (carregado uma única vez)
 const TEMPLATE_CONTENT = `# Instruções para o Assistente GitHub Copilot
 
@@ -11,6 +14,7 @@ Sempre siga a ordem da lista de tarefas.
 
 - (1) Exemplo de tarefa 1
 - (2) Exemplo de tarefa 2
+- (9) Reexecute o script 'esperarResposta.js'!
 
 ## ⚠️ CHECKLIST OBRIGATÓRIO DE FINALIZAÇÃO DE TAREFA
 
@@ -19,7 +23,7 @@ Sempre siga a ordem da lista de tarefas.
 1. **Executei a tarefa solicitada?**
     - Se sim, prossiga.
 
-2. **Executei /home/eduardoho/go/src/git.sof.intra/siop/scripts/esperarResposta.js no terminal APÓS a tarefa?**
+2. **Executei /home/${username}/go/src/git.sof.intra/siop/scripts/esperarResposta.js no terminal APÓS a tarefa?**
     - Se não, execute-o **AGORA**.
     - Se sim, prossiga.
 
@@ -31,7 +35,6 @@ Sempre siga a ordem da lista de tarefas.
 // Verificação rápida e otimizada do ambiente
 function checkEnvironment() {
     console.log(`🔍 Node.js ${process.version} ✓`);
-    console.log('✅ Ambiente verificado!\n');
 }
 
 // Função otimizada para criar nome do arquivo temporário
@@ -58,7 +61,7 @@ function editInVSCode() {
         fs.writeFileSync(tempFile, TEMPLATE_CONTENT);
         
         console.log(`\n✓ Arquivo temporário: ${tempFile}`);
-        console.log('📝 Abrindo VS Code e aguardando fechamento...');
+        console.log('📝 Abrindo VS Code...');
         console.log('⏸️  SCRIPT PAUSADO - Aguardando fechamento do VS Code...\n');
         
         // Remover listeners antes de spawn para evitar conflitos
@@ -89,7 +92,7 @@ function editInVSCode() {
         });
         
         vscode.on('close', () => {
-            console.log('✅ VS Code fechado! Processando instruções...\n');
+            console.log('✅ VS Code fechado! Processando instruções do usuário...\n');
             
             try {
                 const content = fs.readFileSync(tempFile, 'utf8');
@@ -128,7 +131,7 @@ function editInVSCode() {
 checkEnvironment();
 
 console.log('╔══════════════════════════════════════════════════════════╗');
-console.log('║                  SCRIPT DE RESPOSTA v2.1.0               ║');
+console.log('║                  SCRIPT DE RESPOSTA v2.1.1               ║');
 console.log('╚══════════════════════════════════════════════════════════╝');
 console.log('\nSelecione uma opção:');
 console.log('1. 🌀 Nova tentativa');
