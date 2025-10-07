@@ -51,6 +51,30 @@ function ensureTempDir() {
     }
 }
 
+// Função para detectar o comando VS Code correto para o sistema operacional
+function getVSCodeCommand() {
+    if (process.platform === 'win32') {
+        // Caminhos comuns do VS Code no Windows
+        const possiblePaths = [
+            path.join(process.env.LOCALAPPDATA, 'Programs', 'Microsoft VS Code', 'Code.exe'),
+            path.join('C:', 'Program Files', 'Microsoft VS Code', 'Code.exe'),
+            path.join('C:', 'Program Files (x86)', 'Microsoft VS Code', 'Code.exe')
+        ];
+        
+        for (const codePath of possiblePaths) {
+            if (fs.existsSync(codePath)) {
+                return codePath;
+            }
+        }
+        
+        // Se não encontrar, tenta usar 'code' mesmo assim (pode estar no PATH)
+        return 'code';
+    } else {
+        // Linux/macOS - usa 'code' padrão
+        return 'code';
+    }
+}
+
 // Função principal do VS Code otimizada
 function editInVSCode() {
     ensureTempDir();
@@ -68,8 +92,12 @@ function editInVSCode() {
         process.stdin.removeAllListeners('data');
         process.stdin.pause();
         
-        // Spawn otimizado
-        const vscode = spawn('code', ['--wait', tempFile], { 
+        // Detectar comando VS Code correto para o SO
+        const vscodeCommand = getVSCodeCommand();
+        console.log(`🔍 Usando VS Code: ${vscodeCommand}`);
+        
+        // Spawn otimizado com detecção automática do comando
+        const vscode = spawn(vscodeCommand, ['--wait', tempFile], { 
             stdio: ['inherit', 'pipe', 'pipe']
         });
         
