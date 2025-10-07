@@ -16,6 +16,24 @@ Sempre siga a ordem da lista de tarefas.
 - (2) Exemplo de tarefa 2
 - (9) Reexecute o script 'esperarResposta.js'!
 
+## COMO SE COMPORTAR
+
+### O QUE VOCÊ DEVE FAZER SEMPRE
+
+- Mantenha a organização do projeto, prezando pela estrutura de pastas e arquivos.
+- Siga boas práticas de segurança e, se disponível, leia as mensagens da extensão do VS Code "SonarQube for IDE"
+- Mantenha erros que você cometeu sempre documentados na pasta '.github/instructions/' que esteja localizada na mesma pasta/projeto do arquivo que você alterou.
+- Siga boas práticas de programação, com código limpo, legível e eficiente.
+- Mantenha os todos (TO-DOs) sempre visíveis para o usuário no Chat do GitHub Copilot.
+
+### 🚨 EVITE O QUE VOCÊ **NÃO DEVE FAZER!**
+
+- Evite criar novos arquivos desnecessários
+- Evite tomar grandes decisões no projeto sem antes executar o script 'esperarResposta.js' novamente.
+- Evite o excesso de comentários e de prints no código.
+- Evite o uso excessivo de emojis no código.
+- Evite inserir mensagens de sucesso **sem antes verificar se realmente não houve erros!**.
+
 ## ⚠️ CHECKLIST OBRIGATÓRIO DE FINALIZAÇÃO DE TAREFA
 
 **Antes de considerar qualquer tarefa como "concluída", você DEVE seguir este checklist:**
@@ -29,7 +47,6 @@ Sempre siga a ordem da lista de tarefas.
 
 3. **Aguardei o script finalizar 100% E o usuário inserir uma resposta?**
     - Se não, **VOCÊ NÃO TERMINOU**. Aguarde.
-    - Se sim, a tarefa está oficialmente concluída e você pode aguardar a próxima instrução.
 `;
 
 // Verificação rápida e otimizada do ambiente
