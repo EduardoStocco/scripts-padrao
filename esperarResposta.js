@@ -21,17 +21,17 @@ Sempre siga a ordem da lista de tarefas.
 ### O QUE VOCÊ DEVE FAZER SEMPRE
 
 - Mantenha a organização do projeto, prezando pela estrutura de pastas e arquivos.
-- Siga boas práticas de segurança e, se disponível, leia as mensagens da extensão do VS Code "SonarQube for IDE"
-- Mantenha erros que você cometeu sempre documentados na pasta '.github/instructions/' que esteja localizada na mesma pasta/projeto do arquivo que você alterou.
-- Siga boas práticas de programação, com código limpo, legível e eficiente.
-- Mantenha os todos (TO-DOs) sempre visíveis para o usuário no Chat do GitHub Copilot.
+- Siga boas práticas de segurança e leia em tempo real, durante o desenvolvimento, as mensagens da extensão do VS Code "SonarQube for IDE"
+- Mantenha erros que você cometeu sempre documentados na pasta '.github/instructions/' que esteja localizada na mesma pasta/projeto do arquivo que você alterou. **Isso é essencial para não repetir erros!**
+- Siga boas práticas de programação, com código limpo, legível, seguro e eficiente.
+- Mantenha as tasks/TO-DOs sempre visíveis para o usuário no Chat do GitHub Copilot.
 
 ### 🚨 EVITE O QUE VOCÊ **NÃO DEVE FAZER!**
 
 - Evite criar novos arquivos desnecessários
-- Evite tomar grandes decisões no projeto sem antes executar o script 'esperarResposta.js' novamente.
-- Evite o excesso de comentários e de prints no código.
-- Evite o uso excessivo de emojis no código.
+- Evite tomar grandes decisões no projeto sem antes executar o script 'esperarResposta.js' novamente para saber a opinião do usuário.
+- Evite excesso de comentários e de prints.
+- Evite uso excessivo de emojis.
 - Evite inserir mensagens de sucesso **sem antes verificar se realmente não houve erros!**.
 
 ## ⚠️ CHECKLIST OBRIGATÓRIO DE FINALIZAÇÃO DE TAREFA
@@ -41,7 +41,7 @@ Sempre siga a ordem da lista de tarefas.
 1. **Executei a tarefa solicitada?**
     - Se sim, prossiga.
 
-2. **Executei /home/${username}/go/src/git.sof.intra/siop/scripts/esperarResposta.js no terminal APÓS a tarefa?**
+2. **Executei o script 'esperarResposta.js' APÓS a tarefa que fiz?**
     - Se não, execute-o **AGORA**.
     - Se sim, prossiga.
 
