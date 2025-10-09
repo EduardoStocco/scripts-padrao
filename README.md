@@ -1,8 +1,10 @@
 # 🚀 Script de Resposta Interativa
 
-Sistema de interação com usuário através do terminal, projetado para facilitar a comunicação entre assistentes de IA e usuários através de interfaces intuitivas.
+Sistema de interação com usuário através do terminal + Visual Studio Code
 
 ## 📋 Pré-requisitos
+
+É necessário inserir esta pasta **dentro do seu workspace** para que o GitHub Copilot identifique automaticamente o arquivo de instruções em `.github/instructions/scripts.instructions.md`
 
 Antes de usar este script, certifique-se de ter instalado:
 
