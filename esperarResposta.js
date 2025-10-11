@@ -203,7 +203,7 @@ process.stdin.on('data', (key) => {
             
         case '2':
             console.log('\n🛣️ Modo "Continue" selecionado');
-            console.log('\x1b[32m[BEGIN_USER_INSTRUCTIONS]\nContinue a execução. Pode prosseguir!\n[END_USER_INSTRUCTIONS]\x1b[0m');
+            console.log('\x1b[32m[BEGIN_USER_INSTRUCTIONS]\nContinue a execução. Pode continuar onde parou na sua lista de tasks (TODOS)!\n[END_USER_INSTRUCTIONS]\x1b[0m');
             process.exit(0);
             
         case '3':

@@ -69,6 +69,7 @@ Você **SEMPRE** deve executar `node esperarResposta.js` ou `npm start` nas segu
     * Se sim, a tarefa está oficialmente concluída e você pode aguardar a próxima instrução.
 
 **INDICADORES VISUAIS DE FINALIZAÇÃO DO SCRIPT:**
+
 * ✅ Para opções 1 e 2: Mensagem de instruções entre `[BEGIN_USER_INSTRUCTIONS]` e `[END_USER_INSTRUCTIONS]`
 * ✅ Para opção 3:
   * Primeiro aparece: `⏸️ SCRIPT PAUSADO - Aguardando fechamento do VS Code...`

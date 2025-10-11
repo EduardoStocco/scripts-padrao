@@ -38,3 +38,6 @@ Thumbs.db
 *.backup
 tmp-temporarios
 package-lock.json
+
+# Instruções locais para serem ignoradas
+.github/instructions/instrucoes-tecnicas-para-workspace.instructions.md
