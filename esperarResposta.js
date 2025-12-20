@@ -2,6 +2,9 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { spawn } = require('node:child_process');
 
+// Obter username de forma cross-platform (Linux/Windows)
+const username = process.env.USER || process.env.USERNAME;
+
 // Template de arquivo otimizado (carregado uma única vez)
 const TEMPLATE_CONTENT = `# Instruções para o Assistente GitHub Copilot
 
@@ -9,7 +12,26 @@ Sempre siga a ordem da lista de tarefas.
 
 ## LISTA DE TAREFAS 📃
 
-- (1) Instrução exemplo 1
+- (1) SUA 1ª INSTRUÇÃO AQUI
+- (2)
+
+## COMO SE COMPORTAR
+
+### O QUE VOCÊ DEVE FAZER SEMPRE
+
+- Mantenha a organização do projeto, prezando pela estrutura de pastas e arquivos.
+- Siga boas práticas de segurança e leia em tempo real, durante o desenvolvimento, as mensagens da extensão do VS Code "SonarQube for IDE"
+- Mantenha erros que você cometeu sempre documentados na pasta '.github/instructions/' que esteja localizada na mesma pasta/projeto do arquivo que você alterou. **Isso é essencial para não repetir erros!**
+- Siga boas práticas de programação, com código limpo, legível, seguro e eficiente.
+- Mantenha as tasks/TO-DOs sempre visíveis para o usuário no Chat do GitHub Copilot.
+
+### 🚨 EVITE O QUE VOCÊ **NÃO DEVE FAZER!**
+
+- Evite criar novos arquivos desnecessários
+- Evite tomar grandes decisões no projeto sem antes executar o script 'esperarResposta.js' novamente para saber a opinião do usuário.
+- Evite excesso de comentários e de prints.
+- Evite uso excessivo de emojis.
+- Evite inserir mensagens de sucesso **sem antes verificar se realmente não houve erros!**.
 
 ## ⚠️ CHECKLIST OBRIGATÓRIO DE FINALIZAÇÃO DE TAREFA
 
@@ -18,7 +40,7 @@ Sempre siga a ordem da lista de tarefas.
 1. **Executei a tarefa solicitada?**
     - Se sim, prossiga.
 
-2. **Executei /home/eduardoho/go/src/git.sof.intra/siop/scripts/esperarResposta.js no terminal APÓS a tarefa?**
+2. **Executei o script 'esperarResposta.js' APÓS a tarefa que fiz?**
     - Se não, execute-o **AGORA**.
     - Se sim, prossiga.
 
@@ -30,7 +52,6 @@ Sempre siga a ordem da lista de tarefas.
 // Verificação rápida e otimizada do ambiente
 function checkEnvironment() {
     console.log(`🔍 Node.js ${process.version} ✓`);
-    console.log('✅ Ambiente verificado!\n');
 }
 
 // Função otimizada para criar nome do arquivo temporário
@@ -81,7 +102,7 @@ function editInVSCode() {
         fs.writeFileSync(tempFile, TEMPLATE_CONTENT);
         
         console.log(`\n✓ Arquivo temporário: ${tempFile}`);
-        console.log('📝 Abrindo VS Code e aguardando fechamento...');
+        console.log('📝 Abrindo VS Code...');
         console.log('⏸️  SCRIPT PAUSADO - Aguardando fechamento do VS Code...\n');
         
         // Remover listeners antes de spawn para evitar conflitos
@@ -116,7 +137,7 @@ function editInVSCode() {
         });
         
         vscode.on('close', () => {
-            console.log('✅ VS Code fechado! Processando instruções...\n');
+            console.log('✅ VS Code fechado! Processando instruções do usuário...\n');
             
             try {
                 const content = fs.readFileSync(tempFile, 'utf8');
@@ -155,7 +176,7 @@ function editInVSCode() {
 checkEnvironment();
 
 console.log('╔══════════════════════════════════════════════════════════╗');
-console.log('║                  SCRIPT DE RESPOSTA v2.1.0               ║');
+console.log('║                  SCRIPT DE RESPOSTA v2.1.1               ║');
 console.log('╚══════════════════════════════════════════════════════════╝');
 console.log('\nSelecione uma opção:');
 console.log('1. 🌀 Nova tentativa');
@@ -182,7 +203,7 @@ process.stdin.on('data', (key) => {
             
         case '2':
             console.log('\n🛣️ Modo "Continue" selecionado');
-            console.log('\x1b[32m[BEGIN_USER_INSTRUCTIONS]\nContinue a execução. Pode prosseguir!\n[END_USER_INSTRUCTIONS]\x1b[0m');
+            console.log('\x1b[32m[BEGIN_USER_INSTRUCTIONS]\nContinue a execução. Pode continuar onde parou na sua lista de tasks (TODOS)!\n[END_USER_INSTRUCTIONS]\x1b[0m');
             process.exit(0);
             
         case '3':
