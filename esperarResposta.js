@@ -1,6 +1,6 @@
-const fs = require('fs');
-const path = require('path');
-const { spawn } = require('child_process');
+const fs = require('node:fs');
+const path = require('node:path');
+const { spawn } = require('node:child_process');
 
 // Template de arquivo otimizado (carregado uma única vez)
 const TEMPLATE_CONTENT = `# Instruções para o Assistente GitHub Copilot
@@ -9,8 +9,7 @@ Sempre siga a ordem da lista de tarefas.
 
 ## LISTA DE TAREFAS 📃
 
-- (1) Exemplo de tarefa 1
-- (2) Exemplo de tarefa 2
+- (1) Instrução exemplo 1
 
 ## ⚠️ CHECKLIST OBRIGATÓRIO DE FINALIZAÇÃO DE TAREFA
 
@@ -25,7 +24,7 @@ Sempre siga a ordem da lista de tarefas.
 
 3. **Aguardei o script finalizar 100% E o usuário inserir uma resposta?**
     - Se não, **VOCÊ NÃO TERMINOU**. Aguarde.
-    - Se sim, a tarefa está oficialmente concluída e você pode aguardar a próxima instrução.
+    - Se sim, basta seguir as instruções que foram impressas no terminal (check background).
 `;
 
 // Verificação rápida e otimizada do ambiente
@@ -36,7 +35,7 @@ function checkEnvironment() {
 
 // Função otimizada para criar nome do arquivo temporário
 function createTempFileName() {
-    const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, -5);
+    const timestamp = new Date().toISOString().replaceAll(/[:.]/g, '-').slice(0, -5);
     return path.join(__dirname, 'tmp-temporarios', `temp-${timestamp}.md`);
 }
 
@@ -105,8 +104,8 @@ function editInVSCode() {
                     fs.unlinkSync(tempFile);
                     if (!isError) console.log('🗑️  Arquivo temporário removido.');
                 }
-            } catch (cleanupErr) {
-                console.error('⚠️  Erro na limpeza:', cleanupErr.message);
+            } catch (error_) {
+                console.error('⚠️  Erro na limpeza:', error_.message);
             }
         };
         
@@ -129,8 +128,8 @@ function editInVSCode() {
                 console.log('✅ SCRIPT FINALIZADO COM SUCESSO!');
                 process.exit(0);
                 
-            } catch (readErr) {
-                console.error('❌ Erro ao ler arquivo:', readErr.message);
+            } catch (error_) {
+                console.error('❌ Erro ao ler arquivo:', error_.message);
                 cleanup(true);
                 process.exit(1);
             }
