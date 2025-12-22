@@ -24,6 +24,7 @@ Sempre siga a ordem da lista de tarefas.
 - Mantenha erros que você cometeu sempre documentados na pasta '.github/instructions/' que esteja localizada na mesma pasta/projeto do arquivo que você alterou. **Isso é essencial para não repetir erros!**
 - Siga boas práticas de programação, com código limpo, legível, seguro e eficiente.
 - Mantenha as tasks/TO-DOs sempre visíveis para o usuário no Chat do GitHub Copilot.
+- Sempre use a busca vetorial com os comandos descritos nas [Instruções sobre Busca Vetorial com contexto](/home/eduardoho/go/src/git.sof.intra/siop/eduardoho/busca-vetorial)
 
 ### 🚨 EVITE O QUE VOCÊ **NÃO DEVE FAZER!**
 
