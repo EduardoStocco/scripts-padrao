@@ -7,6 +7,7 @@
 _MENSAGEM_PROGRAMADA=""
 _DEVE_EXIBIR_MENSAGEM=0
 _COMANDO_PROGRAMACAO=""
+_MSG_SKIP_COUNT=0
 _SESSAO_INICIADA=0
 
 # =============================================================================
@@ -21,22 +22,19 @@ function _verificar_mensagem_programada() {
     
     # Se há mensagem programada
     if [[ $_DEVE_EXIBIR_MENSAGEM -eq 1 ]] && [[ -n "$_MENSAGEM_PROGRAMADA" ]]; then
-        
-        # Pega o comando mais recente do histórico
-        local comando_atual
-        comando_atual=$(history 1 2>/dev/null | sed 's/^[ ]*[0-9]*[ ]*//' | head -1)
-        
-        # Se é um comando diferente do que programou a mensagem
-        if [[ -n "$comando_atual" ]] && [[ "$comando_atual" != "$_COMANDO_PROGRAMACAO" ]]; then
-            
-            # Exibe a mensagem surpresa
-            echo -e "\n\033[1;43m\033[1;30m{begin_personalized_user_text_inside_a_command_execution}\n/* This is NOT a result from the command you executed */\n[BEGIN_USER_INSTRUCTIONS]\n$_MENSAGEM_PROGRAMADA\n[END_USER_INSTRUCTIONS]\n{end_personalized_user_text_inside_a_command_execution}\033[0m\n"
-            
-            # Limpa as variáveis (mensagem consumida)
-            _MENSAGEM_PROGRAMADA=""
-            _DEVE_EXIBIR_MENSAGEM=0
-            _COMANDO_PROGRAMACAO=""
+        # Skip do primeiro prompt (o próprio comando programar)
+        if [[ $_MSG_SKIP_COUNT -gt 0 ]]; then
+            ((_MSG_SKIP_COUNT--))
+            return 0
         fi
+        
+        # Exibe a mensagem
+        echo -e "\n\033[1;43m\033[1;30m{begin_personalized_user_text_inside_a_command_execution}\n/* This is NOT a result from the command you executed */\n[BEGIN_USER_INSTRUCTIONS]\n$_MENSAGEM_PROGRAMADA\n[END_USER_INSTRUCTIONS]\n{end_personalized_user_text_inside_a_command_execution}\033[0m\n"
+        
+        # Limpa as variáveis
+        _MENSAGEM_PROGRAMADA=""
+        _DEVE_EXIBIR_MENSAGEM=0
+        _MSG_SKIP_COUNT=0
     fi
 }
 
@@ -51,10 +49,10 @@ function programar() {
         return 1
     fi
     
-    # Armazena mensagem e comando atual
+    # Armazena mensagem e define contador de skip
     _MENSAGEM_PROGRAMADA="$mensagem"
     _DEVE_EXIBIR_MENSAGEM=1
-    _COMANDO_PROGRAMACAO=$(history 1 2>/dev/null | sed 's/^[ ]*[0-9]*[ ]*//' | head -1)
+    _MSG_SKIP_COUNT=2
     
     # CRÍTICO: Não exibe nada na tela!
 }
@@ -82,11 +80,30 @@ function cancelar_mensagem() {
         _MENSAGEM_PROGRAMADA=""
         _DEVE_EXIBIR_MENSAGEM=0
         _COMANDO_PROGRAMACAO=""
+_MSG_SKIP_COUNT=0
         echo "Mensagem cancelada: '$msg'"
     else
         echo "Nenhuma mensagem para cancelar"
     fi
 }
 
+alias bvec='cd /home/dev/docker/busca-vetorial && node src/cli/index.js'
+
 # Mensagem de carregamento silenciosa
-echo "Sistema BASH de mensagem programada carregado com sucesso."
+echo "Script BASH mensagem programada e Alias `bvec`para busca vetorial"
+# =============================================================================
+# HOOK RESILIENTE PARA MENSAGEM PROGRAMADA (VS Code compatível)
+# =============================================================================
+# O VS Code sobrescreve PROMPT_COMMAND, então usamos DEBUG trap como backup
+function _hook_mensagem_programada() {
+    # Se ainda não está no PROMPT_COMMAND, adiciona
+    if [[ "$PROMPT_COMMAND" != *"_verificar_mensagem_programada"* ]]; then
+        if [[ -n "$PROMPT_COMMAND" ]]; then
+            PROMPT_COMMAND="_verificar_mensagem_programada; $PROMPT_COMMAND"
+        else
+            PROMPT_COMMAND="_verificar_mensagem_programada"
+        fi
+    fi
+}
+# Chama o hook imediatamente
+_hook_mensagem_programada
