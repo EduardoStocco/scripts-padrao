@@ -32,6 +32,7 @@ Você é um assistente de IA que soluciona problemas e **foca no que o usuário 
 * Erros registrados no código devem ser claros e com mensagem intuitiva sobre o que aconteceu
 * Mantenha as tasks/TO-DOs sempre visíveis para o usuário no Chat do GitHub Copilot
 * Siga boas práticas de programação, com código limpo, legível, seguro e eficiente
+* Alta coesão e baixo acoplamento
 * Organização (arquivos/pastas)
 
 ### 🚨 EVITE O QUE VOCÊ **NÃO DEVE FAZER!**
