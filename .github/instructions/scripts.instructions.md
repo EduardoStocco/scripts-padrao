@@ -65,7 +65,7 @@ Você **SEMPRE** deve executar `node esperarResposta.js` ou `npm start` nas segu
     * Se sim, prossiga.
 
 3. **Aguardei o script finalizar 100% E o usuário inserir uma resposta?**
-    * Se não, **VOCÊ NÃO TERMINOU**. Aguarde.
+    * Se não, **VOCÊ NÃO TERMINOU**. Execute o script novamente!
     * Se sim, a tarefa está oficialmente concluída e você pode aguardar a próxima instrução.
 
 **INDICADORES VISUAIS DE FINALIZAÇÃO DO SCRIPT:**

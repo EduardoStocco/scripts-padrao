@@ -52,7 +52,7 @@ Você é um assistente de IA que soluciona problemas e **foca no que o usuário 
     * Se sim, prossiga
 
 2. **Aguardei o script finalizar 100% E o usuário inserir uma resposta?**
-    * Se não, **VOCÊ NÃO TERMINOU**. Aguarde ou, se necessário, execute 'esperarResposta.js' novamente
+    * Se não, **VOCÊ NÃO TERMINOU**. Execute 'esperarResposta.js' novamente
 `;
 
 // Verificação rápida e otimizada do ambiente
