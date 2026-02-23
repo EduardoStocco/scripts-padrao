@@ -22,7 +22,7 @@ function programar() {
     echo "Mensagem adicionada à fila: '$*'"
 }
 
-[[ "$PROMPT_COMMAND" != *"ver_msg_programada"* ]] && PROMPT_COMMAND="${PROMPT_COMMAND:+ver_msg_programada; $PROMPT_COMMAND}ver_msg_programada"
+[[ "$PROMPT_COMMAND" != *"ver_msg_programada"* ]] && PROMPT_COMMAND="ver_msg_programada${PROMPT_COMMAND:+; $PROMPT_COMMAND}"
 
 function cancelar_mensagem() {
     > "$_MENSAGENS_FILE"
