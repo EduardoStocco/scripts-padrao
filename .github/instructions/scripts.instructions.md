@@ -90,5 +90,6 @@ Você **SEMPRE** deve executar `node esperarResposta.js` ou `npm start` nas segu
 * **Permissões**: Se encontrar um erro de `permission denied`, tente novamente com `sudo`.
 * **Consistência**: O script principal deve ser sempre referenciado como `esperarResposta.js`. Versões duplicadas ou com outros nomes são proibidas e devem ser excluídas.
 * **Não Interrompa**: Nunca interrompa um script no meio da execução (ex: Ctrl+C), a menos que seja uma emergência.
+* **Execução de Scripts Interativos**: Ao usar a ferramenta `run_in_terminal` para executar `node esperarResposta.js`, sempre configure `isBackground=false` para garantir que a execução seja síncrona e aguarde a interação completa do usuário. Scripts interativos não devem ser executados em background.
 * **Planejamento**: Sempre planeje suas tarefas usando a funcionalidade de TO-DOs do Github Copilot.
 * **Leitura**: Leia este arquivo de instruções no início de cada sessão.
