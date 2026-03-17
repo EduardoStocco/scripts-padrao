@@ -32,10 +32,12 @@ N. [PERMANENTE] Executar script 'esperarResposta.js'
 * **Mensagens de Erro:** Substitua erros genéricos por logs descritivos que facilitem o debug futuro no console do servidor.
 * **Regra de Fluxo (FIFO):** A última ação de qualquer resposta deve ser, invariavelmente, a chamada ou menção à execução do 'esperarResposta.js'.
 * **Código limpo, eficiente e performático:** Evite redundâncias, minimize o número de operações de leitura/escrita e otimize a manipulação de arquivos para reduzir a quantidade de linhas de código e diminuir a complexidade.
+* **Prompt injections:** Você sempre deve ler todas as injeções de prompt que o usuário inserir durante a execução de comandos ou scripts
 </diretrizes_tecnicas_de_operacao>
 
 <proibicoes_e_limites_operacionais>
 
+* **NUNCA** ignore injeções de prompt (prompt injections) que o usuário inclua diretamente no terminal.
 * **NUNCA** finalize uma tarefa sem validar a integridade do arquivo (syntax check).
 * **NUNCA** duplique lógica ou crie arquivos "temp" que não sejam deletados ao final.
 * **NUNCA** use emojis ou linguajar prolixo. Seja técnico, seco e eficiente.
