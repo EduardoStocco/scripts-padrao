@@ -189,6 +189,7 @@ console.log('\nSelecione uma opção:');
 console.log('1. 🌀 Nova tentativa');
 console.log('2. 🛣️ Continue');
 console.log('3. 📃 INSTRUÇÕES PERSONALIZADAS');
+console.log('4. 📝 Backlog `todo.md`');
 console.log('\nPressione o número da opção desejada...');
 
 // Configuração otimizada de entrada
@@ -218,6 +219,10 @@ process.stdin.on('data', (key) => {
             editInVSCode();
             return; // Return direto, sem break desnecessário
             
+        case '4':
+            console.log('\n📃 Backlog `todo.md` selecionado...');
+            console.log('\x1b[32m[BEGIN_USER_INSTRUCTIONS]\nO arquivo `todo.md` foi atualizado. Leia-o novamente e continue o trabalho com as próximas tarefas\n[END_USER_INSTRUCTIONS]\x1b[0m');
+            process.exit(0);
         case '\u0003': // Ctrl+C
             console.log('\n🛑 Script interrompido pelo usuário.');
             process.exit(0);
