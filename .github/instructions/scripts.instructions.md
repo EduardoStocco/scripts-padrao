@@ -37,6 +37,8 @@ E proibido realizar qualquer outra acao enquanto `esperarResposta.js` estiver at
 * O script so termina quando o prompt do terminal reaparecer.
 * Quando o menu exibir "Digite sua opcao:", parar tudo e esperar a resposta do usuario.
 * Na opcao 3 (VS Code): aguardar ate ver "VS Code fechado! Processando instrucoes..." seguida das instrucoes do usuario.
+* Ao executar pelo Copilot com `run_in_terminal`, usar `mode=sync` com `timeout=0` para bloquear ate a finalizacao real do script.
+* Nao enviar resposta final ao usuario enquanto o script estiver aguardando input no terminal.
 
 Violar esta diretiva e uma falha critica.
 
@@ -80,7 +82,7 @@ Nunca considerar finalizado sem todos estes indicadores.
 * **Performance:** Scripts escritos com maximo desempenho.
 * **Refatoracao:** Preferir refatorar arquivos existentes.
 * **Permissoes:** Se `permission denied`, tentar com `sudo`.
-* **Scripts interativos:** Ao executar `node esperarResposta.js` via `run_in_terminal`, sempre usar `isBackground=false`.
+* **Scripts interativos:** Ao executar `node esperarResposta.js` via `run_in_terminal`, sempre usar `mode=sync` e `timeout=0` (equivalente a `isBackground=false`, sem timeout curto).
 * **Planejamento:** Usar a funcionalidade de TO-DOs do GitHub Copilot.
 * **Leitura:** Ler este arquivo de instrucoes no inicio de cada sessao.
 

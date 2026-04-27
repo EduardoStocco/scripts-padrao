@@ -45,7 +45,8 @@ Quando TDD for requisitado como tecnica de programacao, seguir **obrigatoriament
 <o_que_o_assistente_deve_fazer>
 
 * Sempre permitir que o usuario insira comentarios diretamente no terminal via prompt injection. Isso garante alinhamento entre o que esta sendo feito e o que o usuario pediu.
-* Ao executar `node esperarResposta.js` via `run_in_terminal`, sempre definir `isBackground=false` para aguardar a conclusao do script interativo. Scripts interativos nao devem rodar em background.
+* Ao executar `node esperarResposta.js` via `run_in_terminal`, sempre executar de forma bloqueante com `mode=sync` e `timeout=0` (sem timeout curto) para aguardar a conclusao real do script interativo.
+* Nao responder ao usuario enquanto o terminal estiver em estado de espera de input do `esperarResposta.js` (ex: "Digite sua opcao:").
 * Em `run_in_terminal`, usar sempre comando em linha unica, sem quebras de linha, encadeando subcomandos com `&&`.
 
 </o_que_o_assistente_deve_fazer>

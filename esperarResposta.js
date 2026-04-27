@@ -183,7 +183,7 @@ function editInVSCode() {
 checkEnvironment();
 
 console.log('╔══════════════════════════════════════════════════════════╗');
-console.log('║                  SCRIPT DE RESPOSTA v2.1.1               ║');
+console.log('║                  SCRIPT DE RESPOSTA v2.1.2               ║');
 console.log('╚══════════════════════════════════════════════════════════╝');
 console.log('\nSelecione uma opção:');
 console.log('1. 🌀 Nova tentativa');
@@ -221,7 +221,7 @@ process.stdin.on('data', (key) => {
             
         case '4':
             console.log('\n📃 Backlog `todo.md` selecionado...');
-            console.log('\x1b[32m[BEGIN_USER_INSTRUCTIONS]\nO arquivo `todo.md` foi atualizado. Leia-o novamente e continue o trabalho com as próximas tarefas\n[END_USER_INSTRUCTIONS]\x1b[0m');
+            console.log('\x1b[32m[BEGIN_USER_INSTRUCTIONS]\nO arquivo `todo.md` ainda possui tarefas pendentes a serem feitas. Leia-o novamente em sua versão atual e continue o trabalho de acordo com a prioridade\n[END_USER_INSTRUCTIONS]\x1b[0m');
             process.exit(0);
         case '\u0003': // Ctrl+C
             console.log('\n🛑 Script interrompido pelo usuário.');
